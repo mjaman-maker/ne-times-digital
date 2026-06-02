@@ -1,6 +1,6 @@
 import { ArrowRight, Clock } from "lucide-react";
-
-export type Story = { title: string; tag: string; time: string; img: string; excerpt?: string };
+import { Link } from "react-router-dom";
+import type { Story } from "@/data/mock";
 
 export function SectionRow({
   id,
@@ -20,17 +20,17 @@ export function SectionRow({
           <span className={`h-7 w-1.5 ${accent ? "bg-breaking" : "bg-navy dark:bg-foreground"}`} />
           <h2 className="text-2xl sm:text-3xl font-black tracking-tight">{title}</h2>
         </div>
-        <a
-          href="#"
+        <Link
+          to={`/category/${id}`}
           className="text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-breaking inline-flex items-center gap-1"
         >
           View all <ArrowRight size={12} />
-        </a>
+        </Link>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {stories.map((s, i) => (
-          <a key={i} href="#" className="group block">
+          <Link key={i} to={`/story/${s.slug}`} className="group block">
             <div className="overflow-hidden rounded-md bg-muted aspect-[4/3]">
               <img
                 src={s.img}
@@ -55,7 +55,7 @@ export function SectionRow({
                 <Clock size={11} /> {s.time}
               </span>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </section>

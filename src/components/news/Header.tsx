@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Search, Moon, Sun, Menu, X } from "lucide-react";
 
 const nav = [
@@ -16,10 +17,21 @@ const nav = [
 export function Header() {
   const [dark, setDark] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery("");
+      setOpen(false);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-card/95 backdrop-blur border-b border-border">
@@ -33,7 +45,7 @@ export function Header() {
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
 
-          <a href="/" className="flex items-center gap-2 select-none">
+          <Link to="/" className="flex items-center gap-2 select-none">
             <span className="inline-flex items-center justify-center h-9 w-9 bg-navy text-white font-black text-lg rounded-sm">
               NE
             </span>
@@ -45,12 +57,21 @@ export function Header() {
                 Digital · Northeast India
               </span>
             </span>
-          </a>
+          </Link>
 
           <div className="flex items-center gap-1">
-            <button className="p-2 text-muted-foreground hover:text-foreground" aria-label="search">
-              <Search size={18} />
-            </button>
+            <form onSubmit={handleSearch} className="flex items-center">
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="hidden md:block bg-muted text-foreground text-sm rounded-md px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-breaking w-48"
+              />
+              <button type="submit" className="p-2 text-muted-foreground hover:text-foreground" aria-label="search">
+                <Search size={18} />
+              </button>
+            </form>
             <button
               className="p-2 text-muted-foreground hover:text-foreground"
               aria-label="theme"
@@ -71,13 +92,14 @@ export function Header() {
           className={`${open ? "flex" : "hidden"} lg:flex flex-col lg:flex-row gap-1 lg:gap-6 py-2 lg:py-0 border-t lg:border-t-0 border-border lg:items-center overflow-x-auto`}
         >
           {nav.map((n) => (
-            <a
+            <Link
               key={n}
-              href={`#${n.toLowerCase().replace(/\s+/g, "-")}`}
+              to={`/category/${n.toLowerCase().replace(/\s+/g, "-")}`}
+              onClick={() => setOpen(false)}
               className="text-sm font-semibold text-foreground/80 hover:text-breaking py-2 lg:py-3 whitespace-nowrap border-b-2 border-transparent hover:border-breaking transition-colors"
             >
               {n}
-            </a>
+            </Link>
           ))}
         </nav>
       </div>

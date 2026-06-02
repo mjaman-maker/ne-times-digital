@@ -3,6 +3,7 @@ import politicsImg from "@/assets/news-politics.jpg";
 import northeastImg from "@/assets/news-northeast.jpg";
 import educationImg from "@/assets/news-education.jpg";
 import { Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const side = [
   {
@@ -10,18 +11,21 @@ const side = [
     title: "New Delhi summit: Northeast CMs push for infrastructure parity",
     time: "12m",
     img: politicsImg,
+    slug: "new-delhi-summit-northeast-cms-push",
   },
   {
     tag: "Northeast",
     title: "Brahmaputra erosion displaces 4,000 in Majuli — relief delayed",
     time: "38m",
     img: northeastImg,
+    slug: "brahmaputra-erosion-displaces-4000",
   },
   {
     tag: "Education",
     title: "Assam to introduce coding curriculum from Class 6 next session",
     time: "1h",
     img: educationImg,
+    slug: "assam-coding-curriculum-class-6",
   },
 ];
 
@@ -29,7 +33,7 @@ export function Hero() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-6">
       <div className="grid lg:grid-cols-3 gap-5">
-        <article className="lg:col-span-2 relative group overflow-hidden rounded-md bg-navy">
+        <Link to="/story/why-upper-assams-tea-workers-havent-received-bonus" className="lg:col-span-2 relative group overflow-hidden rounded-md bg-navy block">
           <img
             src={heroImg}
             alt="Tea garden workers at sunrise in Assam"
@@ -61,13 +65,13 @@ export function Hero() {
               </span>
             </div>
           </div>
-        </article>
+        </Link>
 
         <div className="flex flex-col gap-4">
           {side.map((s) => (
-            <a
+            <Link
               key={s.title}
-              href="#"
+              to={`/story/${s.slug}`}
               className="group grid grid-cols-[110px_1fr] gap-3 bg-card border border-border rounded-md overflow-hidden hover:border-breaking transition-colors"
             >
               <img
@@ -89,7 +93,7 @@ export function Hero() {
                   <Clock size={11} /> {s.time}
                 </span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
