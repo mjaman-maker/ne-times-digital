@@ -7,7 +7,7 @@ const fetchStoriesQuery = async (q: any): Promise<Story[]> => {
   try {
     const snapshot = await getDocs(q);
     return snapshot.docs.map(doc => {
-      const data = doc.data();
+      const data = doc.data() as Record<string, any>;
       return {
         tag: data.tag,
         title: data.title,
