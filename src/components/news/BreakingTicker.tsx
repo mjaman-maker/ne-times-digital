@@ -20,7 +20,8 @@ export function BreakingTicker() {
           <div className="ticker-track flex gap-10 whitespace-nowrap py-2 pl-6">
             {loop.map((t, i) => (
               <span key={i} className="font-medium">
-                <span className="opacity-70 mr-2">●</span>{t}
+                <span className="opacity-70 mr-2">●</span>
+                {t}
               </span>
             ))}
           </div>

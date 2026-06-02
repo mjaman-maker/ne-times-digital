@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
 import { Search, Moon, Sun, Menu, X } from "lucide-react";
 
-const nav = ["Top Stories", "Assam", "Northeast", "India", "Politics", "Education", "Video", "Trending", "Opinion"];
+const nav = [
+  "Top Stories",
+  "Assam",
+  "Northeast",
+  "India",
+  "Politics",
+  "Education",
+  "Video",
+  "Trending",
+  "Opinion",
+];
 
 export function Header() {
   const [dark, setDark] = useState(false);
@@ -15,7 +25,11 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-card/95 backdrop-blur border-b border-border">
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex items-center justify-between py-3">
-          <button className="lg:hidden p-2 -ml-2 text-foreground" onClick={() => setOpen(!open)} aria-label="menu">
+          <button
+            className="lg:hidden p-2 -ml-2 text-foreground"
+            onClick={() => setOpen(!open)}
+            aria-label="menu"
+          >
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
 
@@ -53,7 +67,9 @@ export function Header() {
           </div>
         </div>
 
-        <nav className={`${open ? "flex" : "hidden"} lg:flex flex-col lg:flex-row gap-1 lg:gap-6 py-2 lg:py-0 border-t lg:border-t-0 border-border lg:items-center overflow-x-auto`}>
+        <nav
+          className={`${open ? "flex" : "hidden"} lg:flex flex-col lg:flex-row gap-1 lg:gap-6 py-2 lg:py-0 border-t lg:border-t-0 border-border lg:items-center overflow-x-auto`}
+        >
           {nav.map((n) => (
             <a
               key={n}
